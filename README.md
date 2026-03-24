@@ -5,7 +5,7 @@ A simple task management app built with React, TypeScript, and Vite.
 ## Screenshots
 
 #### Task Manager Main Page.
-  
+
 ![Task Manager Main Page](src/Screenshots/Task-Manager-Main.png)
 
 #### Checkbox Clicked.
@@ -94,5 +94,9 @@ npm run lint
 - `src/types/task.ts` defines a different shape (`id: string`, `title: string`) and is not yet wired into `App.tsx`
 
 ## Links
+
 - [StackBlitz](https://stackblitz.com/~/github.com/Mohaniish2208/task-manager)
+
 - [CodeSandBox](https://codesandbox.io/p/github/Mohaniish2208/task-manager/main?workspaceId=ws_QuyUBcubhh91f2xBfZ1hab)
+
+- [Vercel](https://vercel.com/mohaniish-projects/task-manager-react-ts)
