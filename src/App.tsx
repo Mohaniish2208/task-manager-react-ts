@@ -10,6 +10,12 @@ function App() {
     return saved ? JSON.parse(saved) : []
   })
 
+  const handleCaps = (text: string) => {
+    return text.replace(/^(\s*)([a-z])/, (_, spaces, firstLetter): string => {
+      return spaces + firstLetter.toUpperCase()
+    })
+  }
+
   const handleAddTask = () => {
     const formattedText = handleCaps(task)
     if (formattedText === "") return
@@ -53,12 +59,6 @@ function App() {
     setEditingText("")
   }
 
-  const handleCaps = (text: string) => {
-    const trimmedText = text.trim()
-    if (!trimmedText) return ""
-    return trimmedText.charAt(0).toUpperCase() + trimmedText.slice(1)
-  }
-
   return (
     <div className="app">
       <div className="task-manager">
@@ -84,7 +84,7 @@ function App() {
               type="text"
               placeholder="Type here"
               value={task}
-              onChange={(e) => setTask(e.target.value)}
+              onChange={(e) => setTask(handleCaps(e.target.value))}
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleAddTask()
               }}
@@ -109,7 +109,7 @@ function App() {
                   <input
                     className="edit-input"
                     value={editingText}
-                    onChange={(e) => setEditingText(e.target.value)}
+                    onChange={(e) => setEditingText(handleCaps(e.target.value))}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") return handleSaveEdit(t.id)
                     }}
