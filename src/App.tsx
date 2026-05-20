@@ -59,14 +59,25 @@ function App() {
     setEditingText("")
   }
 
+  const priority = ["High", "Medium", "Low"]
+
+  const categories = ["Personal", "Work", "School"]
+
   return (
     <div className="app">
       <div className="task-manager">
-        <h1 className="title">Task Manager</h1>
+        <div className="title-container">
+          <h1 className="title">
+            <span>
+              <img className="title-img" src="../public/notepad.svg" alt="title-img" />
+            </span>
+            Task Manager
+          </h1>
+        </div>
 
         <div className="counts-and-clear">
           <p className="total-counts">
-            {completedTasks} of {totalCount} tasks completed.
+            {completedTasks} of {totalCount} tasks completed
           </p>
 
           <button
@@ -74,6 +85,9 @@ function App() {
             type="button"
             onClick={handleClearCompleted}
           >
+            <span>
+              <img className="delete-icon-clear" src={deleteIcon} alt="Delete" />
+            </span>
             Clear Completed
           </button>
         </div>
@@ -90,6 +104,23 @@ function App() {
               }}
               className="task-input"
             />
+            <select className="priority-select">
+              {priority.map((item) => (
+                <option className="priority-text" key={item} value={item}>
+                  <span className="circle">{"\u25CF"}</span>
+                  {item}
+                </option>
+              ))}
+            </select>
+
+            <select className="categories-select">
+              {categories.map((category) => (
+                <option className="category-text" key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+
             <button type="button" className="add-button" onClick={handleAddTask}>
               + Add
             </button>

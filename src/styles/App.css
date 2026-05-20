@@ -1,3 +1,5 @@
+@import "variables.css";
+
 body {
   margin: 0;
 }
@@ -9,27 +11,40 @@ body {
   font-family: sans-serif;
   padding-top: 60px;
   margin-top: 0;
-
-  background-image: url("../images/pexels-apasaric-1323712.jpg");
+  background-image: url("../../public/Background.svg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .task-manager {
-  background-color: rgb(194, 211, 153);
+  background-color: rgb(255, 253, 253);
   border: 3px solid rgb(0, 0, 0);
-  border-radius: 10px;
-  padding: 30px;
-  width: 420px;
+  border-radius: var(--theme-border-rad);
+  width: min(90%, 50rem);
   height: 520px;
   box-shadow: 0 10px 70px 0 rgba(0, 0, 0, 0.7);
 }
 
+.title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid #666;
+  padding: 1rem;
+  background: rgb(208, 210, 210);
+  border-radius: 0.8rem 0.8rem 0 0;
+}
+
 .title {
   text-align: center;
-  text-shadow: 2px 0px 4px #000;
-  margin: 0 0 16px;
+  font-family: var(--head-theme-font);
+}
+
+.title-img {
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-right: 0.5rem;
 }
 
 .input-task-row {
@@ -55,15 +70,20 @@ body {
 }
 
 .clear-button {
+  display: flex;
   cursor: pointer;
   background-color: #ffffff;
+  align-items: center;
+  justify-content: center;
   margin: 12px 0px;
-  border-radius: 15px;
+  font-family: var(--matter-font);
+  font-weight: 800;
+  font-size: 0.9rem;
+  border-radius: 0.3rem;
   border: none;
-  padding: 0px 15px;
+  padding: 0.5rem 0.9rem;
   transition: 0.5s ease-in-out;
   box-shadow: 0px 5px 5px 0px rgb(0 0 0/ 0.4);
-  font-weight: 600;
 }
 
 .add-button {
@@ -74,6 +94,8 @@ body {
   padding: 6px 10px;
   color: rgb(255, 249, 249);
   background-color: blue;
+  font-family: var(--matter-font);
+  font-size: 0.9rem;
   font-weight: 700;
   box-shadow: rgba(56, 56, 56, 0.2);
   box-shadow: 0px 5px 5px 0px rgb(0 0 0/ 0.4);
@@ -82,12 +104,14 @@ body {
 
 .counts-and-clear {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  padding: 0.5rem 2rem;
+  font-family: var(--matter-font);
+  font-weight: 600;
 }
 
 .input-main-section {
-  border: 2px solid black;
-  border-radius: 15px;
   box-shadow: 0px 5px 5px 0px rgb(0 0 0/ 0.4);
 }
 
@@ -95,9 +119,8 @@ body {
   flex: 1;
   margin: 6px;
   padding: 8px;
-  border-radius: 6px;
+  border-radius: 0.2rem;
   border: 1px solid #ccc;
-  border-radius: 15px;
   box-shadow: 0px 5px 5px 0px rgb(0 0 0/ 0.4);
 }
 
@@ -146,7 +169,12 @@ body {
 .delete-button {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 3px;
+  font-family: var(--matter-font);
+  font-weight: 800;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.3rem;
 }
 
 .pen-icon,
@@ -154,6 +182,17 @@ body {
   padding-right: 5px;
   height: 14px;
   width: 14px;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-icon-clear {
+  margin-top: 0.3rem;
+  padding-right: 5px;
+  height: 14px;
+  width: 14px;
+  align-items: center;
+  justify-content: center;
 }
 
 .clear-button-glow {
