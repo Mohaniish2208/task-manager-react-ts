@@ -65,6 +65,8 @@ function App() {
     { label: "Low", color: "green" },
   ]
 
+  const [selectedPriority, setSelectedPriority] = useState(priority[0])
+
   const categories = ["Personal", "Work", "School"]
 
   return (
@@ -105,14 +107,25 @@ function App() {
               }}
               className="task-input"
             />
-            <select className="priority-menu">
-              {priority.map((item) => (
-                <button className="priority-option" type="button" value={item.label}>
-                  <span className="priority-circle" style={{ backgroundColor: item.color }} />
-                  {item.label}
-                </button>
-              ))}
-            </select>
+
+            <div className="priority-select-wrapper">
+              <span className="priority-circle" style={{ backgroundColor: selectedPriority.color }} />
+
+              <select
+                className="priority-select"
+                value={selectedPriority.label}
+                onChange={(e) => {
+                  const nextPriority = priority.find((item) => item.label === e.target.value)
+                  if (nextPriority) setSelectedPriority(nextPriority)
+                }}
+              >
+                {priority.map((item) => (
+                  <option key={item.label} value={item.label}>
+                    {item.label}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             <select className="categories-select">
               {categories.map((category) => (
