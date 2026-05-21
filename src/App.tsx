@@ -59,7 +59,11 @@ function App() {
     setEditingText("")
   }
 
-  const priority = ["High", "Medium", "Low"]
+  const priority = [
+    { label: "High", color: "red" },
+    { label: "Medium", color: "gold" },
+    { label: "Low", color: "green" },
+  ]
 
   const categories = ["Personal", "Work", "School"]
 
@@ -101,12 +105,12 @@ function App() {
               }}
               className="task-input"
             />
-            <select className="priority-select">
+            <select className="priority-menu">
               {priority.map((item) => (
-                <option className="priority-text" key={item} value={item}>
-                  <span className="circle">{"\u25CF"}</span>
-                  {item}
-                </option>
+                <button className="priority-option" type="button" value={item.label}>
+                  <span className="priority-circle" style={{ backgroundColor: item.color }} />
+                  {item.label}
+                </button>
               ))}
             </select>
 
