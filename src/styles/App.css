@@ -22,7 +22,7 @@ body {
   border: 3px solid rgb(0, 0, 0);
   border-radius: var(--theme-border-rad);
   width: min(90%, 50rem);
-  height: 520px;
+  height: 50vh;
   box-shadow: 0 10px 70px 0 rgba(0, 0, 0, 0.7);
 }
 
@@ -33,13 +33,18 @@ body {
   border-bottom: 2px solid #666;
   padding: 1rem;
   background-color: #0c131d;
-  background-image: url("../lexora-logo.svg");
-  border-radius: 0.8rem 0.8rem 0 0;
+  /* background-image: url("../lexora-logo.svg"); */
+  border-radius: 0.6rem 0.6rem 0 0;
 }
 
 .title {
   text-align: center;
   font-family: var(--head-theme-font);
+}
+
+.lexora-logo {
+  height: 7rem;
+  margin: 0;
 }
 
 .title-img {

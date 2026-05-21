@@ -68,10 +68,7 @@ function App() {
       <div className="task-manager">
         <div className="title-container">
           <h1 className="title">
-            <span>
-              <img className="title-img" src="../public/notepad.svg" alt="title-img" />
-            </span>
-            Task Manager
+            <img className="lexora-logo" src="../public/lexora-logo.svg" alt="logo" />
           </h1>
         </div>
 
