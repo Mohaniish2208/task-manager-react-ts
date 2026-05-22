@@ -3,9 +3,22 @@ import penIcon from "./images/pen.png"
 import deleteIcon from "./images/delete.png"
 import "./styles/App.css"
 
+type Priority = {
+  label: string
+  color: string
+}
+
+type Task = {
+  id: number
+  text: string
+  completed: boolean
+  priority: Priority
+  category: string
+}
+
 function App() {
   const [task, setTask] = useState("")
-  const [taskArr, setTaskArr] = useState<{ id: number; text: string; completed: boolean }[]>(() => {
+  const [taskArr, setTaskArr] = useState<Task[]>(() => {
     const saved = localStorage.getItem("tasks")
     return saved ? JSON.parse(saved) : []
   })
@@ -19,7 +32,10 @@ function App() {
   const handleAddTask = () => {
     const formattedText = handleCaps(task)
     if (formattedText === "") return
-    setTaskArr((prev) => [...prev, { id: Date.now(), text: formattedText, completed: false }]) // task.trim() resets the blank spaces
+    setTaskArr((prev) => [
+      ...prev,
+      { id: Date.now(), text: formattedText, completed: false, priority: selectedPriority, category: selectedCategory },
+    ]) // task.trim() resets the blank spaces
     setTask("")
   }
 
@@ -68,6 +84,8 @@ function App() {
   const [selectedPriority, setSelectedPriority] = useState(priority[0])
 
   const categories = ["Personal", "Work", "School"]
+
+  const [selectedCategory, setSelectedCategory] = useState(categories[0])
 
   return (
     <div className="app">
@@ -127,7 +145,11 @@ function App() {
               </select>
             </div>
 
-            <select className="categories-select">
+            <select
+              className="categories-select"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
               {categories.map((category) => (
                 <option className="category-text" key={category} value={category}>
                   {category}
