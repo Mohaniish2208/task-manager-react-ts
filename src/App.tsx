@@ -185,6 +185,15 @@ function App() {
                   <span className={t.completed ? "task-text completed" : "task-text"}>{t.text}</span>
                 )}
 
+                <div className="task-meta">
+                  <span
+                    className="task-priority-circle"
+                    style={{ backgroundColor: t.priority?.color }}
+                    title={t.priority?.label}
+                  ></span>
+                  <button className="category-task"></button>
+                </div>
+
                 {editingId === t.id ? (
                   <button className="save-button" type="button" onClick={() => handleSaveEdit(t.id)}>
                     Save
