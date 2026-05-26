@@ -159,6 +159,7 @@ body {
   padding: 8px;
   border-radius: 0.2rem;
   cursor: pointer;
+  border: 1px solid #ccc;
   font-family: var(--matter-font);
 }
 
