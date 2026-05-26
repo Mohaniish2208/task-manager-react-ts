@@ -191,7 +191,7 @@ function App() {
                     style={{ backgroundColor: t.priority?.color }}
                     title={t.priority?.label}
                   ></span>
-                  <button className="category-task"></button>
+                  <button className="category-task">{t.category ?? "Personal"}</button>
                 </div>
 
                 {editingId === t.id ? (
