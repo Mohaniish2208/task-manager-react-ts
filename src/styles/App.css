@@ -69,6 +69,10 @@ body {
     height: 100svh;
   }
 
+  .task-text {
+    width: 3rem;
+  }
+
   .input-task-row {
     flex: grid;
     grid-template-rows: 5rem 1rem minmax(0, 1fr);
