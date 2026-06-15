@@ -93,6 +93,9 @@ function App() {
         <div className="title-container">
           <h1 className="title">
             <img className="lexora-logo" src="../public/lexora-logo.svg" alt="logo" />
+            <p className="affiliation">
+              Powered by <span className="lifted">Lifted</span>
+            </p>
           </h1>
         </div>
 

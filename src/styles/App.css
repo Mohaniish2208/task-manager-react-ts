@@ -45,6 +45,20 @@ body {
   font-family: var(--head-theme-font);
 }
 
+.affiliation {
+  font-family: var(--oswald-narrow);
+  color: #ffffff;
+  font-size: 0.6rem;
+  text-align: end;
+  margin-top: 0;
+  padding: 0 1.2rem;
+}
+
+.lifted {
+  font-style: italic;
+  font-weight: 800;
+  color: goldenrod;
+}
 .lexora-logo {
   height: 7rem;
   margin: 0;
@@ -100,8 +114,8 @@ body {
 }
 
 .delete-button {
-  color: red;
-  background-color: rgb(245, 216, 221);
+  color: rgb(255, 249, 249);
+  background: linear-gradient(10deg, rgb(162, 80, 80), red);
 }
 
 .clear-button {
