@@ -15,11 +15,11 @@ export default function SignIn() {
       <section className="info-container">
         <form>
           <label className="username">
-            Username <input type="text" className="username-input" />
+            Email <input type="text" className="username-input" placeholder="Enter your email" />
           </label>
 
           <label className="password">
-            Password <input type="text" className="password-input" />
+            Password <input type="text" className="password-input" placeholder="Enter you password" />
           </label>
 
           <label className="remember">
@@ -27,8 +27,23 @@ export default function SignIn() {
             Remember Me
           </label>
 
-          <button type="submit">Save</button>
+          <label className="forgot">
+            <a target="">Forgot Password?</a>
+          </label>
+
+          <button className="submit-btn" type="submit">
+            Sign In
+          </button>
+
+          <p>
+            Don't have an account?<a> Create one.</a>
+          </p>
         </form>
+      </section>
+
+      <section className="mindful">
+        <img className="mindful-logo" src="../../public/Mindfulness Flower.svg" alt="logo" />
+        <p className="mindful-text">Breathe in. Focus. You've got this. One task at a time.</p>
       </section>
     </main>
   )
