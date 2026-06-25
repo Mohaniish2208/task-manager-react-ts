@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import penIcon from "./images/pen.png"
 import deleteIcon from "./images/delete.png"
 import "./styles/App.css"
+import { Route, Routes } from "react-router-dom"
+import SignIn from "./Pages/SignInPage"
 
 type Priority = {
   label: string
@@ -16,7 +18,7 @@ type Task = {
   category: string
 }
 
-function App() {
+function TaskManagerPage() {
   const [task, setTask] = useState("")
   const [taskArr, setTaskArr] = useState<Task[]>(() => {
     const saved = localStorage.getItem("tasks")
@@ -221,4 +223,12 @@ function App() {
   )
 }
 
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<SignIn />} />
+      <Route path="/tasks" element={<TaskManagerPage />} />
+    </Routes>
+  )
+}
 export default App
