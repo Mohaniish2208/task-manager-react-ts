@@ -18,11 +18,11 @@ export default function SignIn() {
         <section className="info-container">
           <form className="form">
             <label className="email">
-              Email <input type="text" className="username-input" placeholder="Enter your email" />
+              Email: <input type="text" className="username-input" placeholder="Enter your email" />
             </label>
 
             <label className="password">
-              Password <input type="password" className="password-input" placeholder="Enter you password" />
+              Password: <input type="password" className="password-input" placeholder="Enter you password" />
             </label>
 
             <label className="remember">
@@ -30,13 +30,13 @@ export default function SignIn() {
               Remember Me
             </label>
 
-            <label className="forgot">
-              <a target="">Forgot Password?</a>
-            </label>
-
             <button className="submit-btn" type="submit">
               Sign In
             </button>
+
+            {/* <label className="forgot">
+              <a target="">Forgot Password?</a>
+            </label> ADD THIS AFTER THE PASSWORD MATCH FAILS. */}
 
             <p className="question">
               Don't have an account?<a className="create"> Create one.</a>

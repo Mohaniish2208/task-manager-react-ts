@@ -1,4 +1,4 @@
-@import "variables.css";
+@import "./variables.css";
 
 .sections-container {
   display: flex;
@@ -11,12 +11,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: var(--head-theme-font);
+  line-height: 2.5rem;
 }
 
-.submit-btn .mindful {
+.remember {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit-btn,
+.username-input,
+.password-input {
+  padding: 0.2rem 0.4rem;
+  font-family: var(--head-theme-font);
+  line-height: 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.mindful {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: var(--head-theme-font);
+  color: antiquewhite;
 }
 
 .mindful-logo {
