@@ -4,6 +4,7 @@ import deleteIcon from "./images/delete.png"
 import "./styles/App.css"
 import { Route, Routes } from "react-router-dom"
 import SignIn from "./Pages/SignInPage"
+import SignUp from "./Pages/SignUpPage"
 
 type Priority = {
   label: string
@@ -227,6 +228,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<SignIn />} />
+      <Route path="/signup" element={<SignUp />} />
       <Route path="/tasks" element={<TaskManagerPage />} />
     </Routes>
   )

@@ -1,3 +1,5 @@
+import "../styles/SignInPage.css"
+
 export default function SignIn() {
   return (
     <main>
@@ -12,39 +14,41 @@ export default function SignIn() {
         </div>
       </section>
 
-      <section className="info-container">
-        <form>
-          <label className="username">
-            Email <input type="text" className="username-input" placeholder="Enter your email" />
-          </label>
+      <div className="sections-container">
+        <section className="info-container">
+          <form className="form">
+            <label className="email">
+              Email <input type="text" className="username-input" placeholder="Enter your email" />
+            </label>
 
-          <label className="password">
-            Password <input type="text" className="password-input" placeholder="Enter you password" />
-          </label>
+            <label className="password">
+              Password <input type="password" className="password-input" placeholder="Enter you password" />
+            </label>
 
-          <label className="remember">
-            <input type="checkbox" />
-            Remember Me
-          </label>
+            <label className="remember">
+              <input type="checkbox" />
+              Remember Me
+            </label>
 
-          <label className="forgot">
-            <a target="">Forgot Password?</a>
-          </label>
+            <label className="forgot">
+              <a target="">Forgot Password?</a>
+            </label>
 
-          <button className="submit-btn" type="submit">
-            Sign In
-          </button>
+            <button className="submit-btn" type="submit">
+              Sign In
+            </button>
 
-          <p>
-            Don't have an account?<a> Create one.</a>
-          </p>
-        </form>
-      </section>
+            <p className="question">
+              Don't have an account?<a className="create"> Create one.</a>
+            </p>
+          </form>
+        </section>
 
-      <section className="mindful">
-        <img className="mindful-logo" src="../../public/Mindfulness Flower.svg" alt="logo" />
-        <p className="mindful-text">Breathe in. Focus. You've got this. One task at a time.</p>
-      </section>
+        <section className="mindful">
+          <img className="mindful-logo" src="/Mindfulness Flower.svg" alt="logo" />
+          <p className="mindful-text">Breathe in. Focus. You've got this. One task at a time.</p>
+        </section>
+      </div>
     </main>
   )
 }
