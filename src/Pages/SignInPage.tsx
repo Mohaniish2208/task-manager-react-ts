@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom"
 import "../styles/SignInPage.css"
 
 export default function SignIn() {
+  const navigate = useNavigate()
   return (
     <main>
       <section className="logo-container">
@@ -30,7 +32,7 @@ export default function SignIn() {
               Remember Me
             </label>
 
-            <button className="submit-btn" type="submit">
+            <button className="submit-btn" type="submit" onSubmit={() => navigate("/tasks")}>
               Sign In
             </button>
 
