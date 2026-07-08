@@ -19,6 +19,7 @@ export default function SignIn() {
       <div className="sections-container">
         <section className="info-container">
           <form className="form">
+            <h2 className="welcome">Welcome!</h2>
             <label className="email">
               Email: <input type="text" className="username-input" placeholder="Enter your email" />
             </label>
@@ -36,9 +37,7 @@ export default function SignIn() {
               Sign In
             </button>
 
-            {/* <label className="forgot">
-              <a target="">Forgot Password?</a>
-            </label> ADD THIS AFTER THE PASSWORD MATCH FAILS. */}
+            <span className="partition">or</span>
 
             <p className="question">
               Don't have an account?<a className="create"> Create one.</a>
