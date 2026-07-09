@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import "../styles/SignInPage.css"
 
 export default function SignIn() {
@@ -44,7 +44,10 @@ export default function SignIn() {
             </div>
 
             <p className="question">
-              Don't have an account?<a className="create"> Create one.</a>
+              Don't have an account?
+              <Link to={"/signup"} className="create">
+                Create one.
+              </Link>
             </p>
           </form>
         </section>
