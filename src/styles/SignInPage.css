@@ -1,11 +1,24 @@
 @import "./variables.css";
 
+.body,
+.html {
+  height: 100%;
+}
+
+.title-container {
+  border: none;
+}
+
 .sections-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   line-height: 1.5rem;
-  background: linear-gradient(5deg, #0c131d, #2f6bff);
+  background: #0c131d;
+}
+
+.info-container {
+  background: linear-gradient(5deg, #121c2b, #22395b);
 }
 
 .form {
@@ -34,7 +47,7 @@
 
 .info-container {
   border: 2px solid black;
-  border-radius: 0.5rem;
+  border-radius: 0.9rem;
   display: flex;
   justify-content: center;
   width: 25rem;
@@ -46,6 +59,39 @@
   align-items: center;
   font-family: var(--head-theme-font);
   color: antiquewhite;
+}
+
+.mindful-text,
+.question {
+  color: rgb(187, 213, 237);
+}
+
+.form {
+  margin: 1.5rem;
+}
+
+.email,
+.password,
+.remember {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+.email,
+.password,
+.remember,
+.submit-btn,
+.username-input,
+.password-input,
+.partition {
+  font-weight: 600;
+}
+
+.email,
+.password {
+  display: flex;
+  gap: 1rem;
 }
 
 .mindful-logo {

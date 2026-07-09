@@ -37,7 +37,11 @@ export default function SignIn() {
               Sign In
             </button>
 
-            <span className="partition">or</span>
+            <div className="divider">
+              <span className="partition-line"></span>
+              <span className="partition">or</span>
+              <span className="partition-line"></span>
+            </div>
 
             <p className="question">
               Don't have an account?<a className="create"> Create one.</a>
