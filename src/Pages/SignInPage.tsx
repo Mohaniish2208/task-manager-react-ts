@@ -28,10 +28,17 @@ export default function SignIn() {
               Password: <input type="password" className="password-input" placeholder="Enter you password" />
             </label>
 
-            <label className="remember">
-              <input type="checkbox" />
-              Remember Me
-            </label>
+            <div className="remember">
+              <label className="remember-sec-1">
+                <input type="checkbox" />
+                Remember Me
+              </label>
+              <div className="remember-sec-2">
+                <Link to={"/forgotpassword"} className="forgotpassword">
+                  Forgot Password
+                </Link>
+              </div>
+            </div>
 
             <button className="submit-btn" type="submit" onSubmit={() => navigate("/tasks")}>
               Sign In
@@ -46,7 +53,7 @@ export default function SignIn() {
             <p className="question">
               Don't have an account?
               <Link to={"/signup"} className="create">
-                Create one.
+                Create one
               </Link>
             </p>
           </form>
@@ -54,7 +61,9 @@ export default function SignIn() {
 
         <section className="mindful">
           <img className="mindful-logo" src="/Mindfulness Flower.svg" alt="logo" />
-          <p className="mindful-text">Breathe in. Focus. You've got this. One task at a time.</p>
+          <p className="mindful-text">
+            Breathe in. Focus. <br /> You've got this. One task at a time.
+          </p>
         </section>
       </div>
     </main>

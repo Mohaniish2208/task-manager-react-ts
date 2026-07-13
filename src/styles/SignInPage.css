@@ -40,7 +40,6 @@
   justify-content: center;
 }
 
-.submit-btn,
 .username-input,
 .password-input {
   padding: 0.2rem 0.4rem;
@@ -48,6 +47,16 @@
   line-height: 1.5rem;
   border: none;
   border-radius: 0.5rem;
+}
+
+.submit-btn {
+  padding: 0.4rem 0.5rem;
+  font-family: var(--head-theme-font);
+  line-height: 1.5rem;
+  border: none;
+  color: azure;
+  border-radius: 0.2rem;
+  background: linear-gradient(90deg, #9494df, #5050e6);
 }
 
 .info-container {
@@ -71,11 +80,19 @@
   color: rgb(187, 213, 237);
 }
 
+.question {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+}
+
 .form {
   margin: 0.655rem;
 }
 
 .welcome {
+  color: azure;
   font-size: 2.7rem;
 }
 
@@ -86,20 +103,47 @@
 
 .email,
 .password,
-.remember {
+.remember,
+.forgotpassword {
   display: flex;
   justify-content: space-between;
   margin: 0.2rem 0;
+  color: azure;
+}
+
+.remember {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.forgotpassword {
+  color: #655ad8;
+  text-decoration: none;
 }
 
 .email,
 .password,
-.remember,
-.submit-btn,
 .username-input,
-.password-input,
-.partition {
+.password-input {
   font-weight: 600;
+}
+
+.partition {
+  color: azure;
+}
+
+.mindful {
+  margin-top: 1rem;
+}
+
+.mindful-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 20rem;
 }
 
 .email,
@@ -108,8 +152,13 @@
   gap: 1rem;
 }
 
+.remember-sec-1 {
+  display: flex;
+  justify-content: center;
+}
+
 .create {
-  font-weight: 600;
+  color: #655ad8;
   text-decoration: none;
 }
 
