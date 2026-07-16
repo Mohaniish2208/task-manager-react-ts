@@ -1,4 +1,8 @@
-export const saveUsername = (username: string) => {
+export const saveFirstName = (username: string) => {
+  localStorage.setItem("id", JSON.stringify(username))
+}
+
+export const saveLastName = (username: string) => {
   localStorage.setItem("id", JSON.stringify(username))
 }
 
