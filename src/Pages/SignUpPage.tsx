@@ -49,6 +49,7 @@ export default function SignUp() {
       alert("No special symbols are allowed")
       return "error"
     }
+    return "Ok"
   }
 
   const handleCaps = (str: string) => {
@@ -118,10 +119,15 @@ export default function SignUp() {
             <input
               className="email-input"
               type="email"
-              value={emailInput}
               placeholder="Email"
               required
-              onChange={(e) => setEmailInput(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value
+                const result = handleEmailErrors(value)
+                if (result !== "error") {
+                  setEmailInput(result)
+                }
+              }}
             />
           </div>
 
@@ -144,14 +150,26 @@ export default function SignUp() {
 
           <div className="password-container">
             <label className="password-reg">Password: </label>
-            <input className="password-input-reg" type="text" placeholder="Password" required />
+            <input
+              className="password-input-reg"
+              type="password"
+              placeholder="Password"
+              required
+              onChange={(e) => {
+                const value = e.target.value
+                const result = handlePassword(value)
+                if (result !== "error") {
+                  setPassword(result)
+                }
+              }}
+            />
           </div>
 
           <div className="password-confirm-container">
             <label> Confirm Password: </label>
             <input
               className="confirmation-input"
-              type="text"
+              type="password"
               placeholder="Confirm Password"
               required
               onChange={(e) => {
