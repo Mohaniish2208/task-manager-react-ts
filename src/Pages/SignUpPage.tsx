@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { saveFirstName, saveLastName } from "../types/localStorage"
+import { saveEmail, saveFirstName, saveLastName, savePassword, savePhone } from "../types/localStorage"
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("")
@@ -78,6 +78,9 @@ export default function SignUp() {
             e.preventDefault()
             saveFirstName(firstName)
             saveLastName(lastName)
+            saveEmail(emailInput)
+            savePassword(password)
+            savePhone(phone)
           }}
         >
           <div className="name-container">
