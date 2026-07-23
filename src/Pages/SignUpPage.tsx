@@ -86,15 +86,16 @@ export default function SignUp() {
           <div className="name-container">
             <label className="name">First name: </label>
             <input
-              className="full-name-input"
+              className="first-name-input"
               type="text"
               placeholder="First name"
+              value={firstName}
               required
               onChange={(e) => {
                 const value = e.target.value
-                const result = handleCaps(handleFirstName(value))
+                const result = handleFirstName(value)
                 if (result !== "error") {
-                  setFirstName(value)
+                  setFirstName(handleCaps(value))
                 }
               }}
             />
@@ -103,15 +104,16 @@ export default function SignUp() {
           <div className="name-container">
             <label className="name">Last name: </label>
             <input
-              className="full-name-input"
+              className="last-name-input"
               type="text"
               placeholder="Last name"
+              value={lastName}
               required
               onChange={(e) => {
                 const value = e.target.value
                 const result = handleLastName(value)
                 if (result !== "error") {
-                  setLastName(result)
+                  setLastName(handleCaps(value))
                 }
               }}
             />
