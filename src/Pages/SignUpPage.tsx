@@ -1,16 +1,17 @@
 import { useState } from "react"
 import { saveEmail, saveFirstName, saveLastName, savePassword, savePhone } from "../types/localStorage"
+import "../styles/SignUpPage.css"
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [emailInput, setEmailInput] = useState("")
   const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [phone, setPhone] = useState("")
 
   const handlePassword = (str: string) => {
     if (str.length < 8) {
-      alert("The password should be at least 8 characters long.")
       return "error"
     }
     return "Ok"
@@ -52,6 +53,14 @@ export default function SignUp() {
     return "Ok"
   }
 
+  const handlePasswordConfirmation = (str: string) => {
+    if (password !== str) {
+      alert("Passwords don't match.")
+      return "error"
+    }
+    return "Ok"
+  }
+
   const handleCaps = (str: string) => {
     if (str.trim() === "") return ""
     return str.replace(/^(\s*)([a-z])/, (_, spaces, firstletter) => {
@@ -73,9 +82,13 @@ export default function SignUp() {
       </section>
       <section className="form-section">
         <form
-          className="form"
+          className="sign-up-form"
           onSubmit={(e) => {
             e.preventDefault()
+
+            if (handlePassword(password) === "error") return
+            if (handlePasswordConfirmation(confirmPassword) === "error") return
+
             saveFirstName(firstName)
             saveLastName(lastName)
             saveEmail(emailInput)
@@ -160,30 +173,21 @@ export default function SignUp() {
               type="password"
               placeholder="Password"
               required
-              onChange={(e) => {
-                const value = e.target.value
-                const result = handlePassword(value)
-                if (result !== "error") {
-                  setPassword(result)
-                }
-              }}
+              value={password}
+              minLength={8}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
           <div className="password-confirm-container">
-            <label> Confirm Password: </label>
+            <label className="confirmation-password-reg"> Confirm Password: </label>
             <input
-              className="confirmation-input"
+              className="confirmation-password-input"
               type="password"
               placeholder="Confirm Password"
               required
-              onChange={(e) => {
-                const value = e.target.value
-                const result = handlePassword(value)
-                if (result !== "error") {
-                  setPassword(result)
-                }
-              }}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
 
