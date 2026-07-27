@@ -69,7 +69,7 @@ export default function SignUp() {
   }
 
   return (
-    <main>
+    <main className="main">
       <section className="logo-container">
         <div className="title-container">
           <h1 className="title">

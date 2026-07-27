@@ -4,7 +4,7 @@ import "../styles/SignInPage.css"
 export default function SignIn() {
   const navigate = useNavigate()
   return (
-    <main>
+    <main className="sign-in-main">
       <section className="logo-container">
         <div className="title-container">
           <h1 className="title">
