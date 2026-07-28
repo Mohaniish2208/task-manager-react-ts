@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { saveEmail, saveFirstName, saveLastName, savePassword, savePhone } from "../types/localStorage"
 import "../styles/SignUpPage.css"
+import { useNavigate } from "react-router-dom"
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("")
@@ -9,6 +10,8 @@ export default function SignUp() {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [phone, setPhone] = useState("")
+
+  const navigate = useNavigate()
 
   const handlePassword = (str: string) => {
     if (str.length < 8) {
@@ -85,7 +88,10 @@ export default function SignUp() {
           className="sign-up-form"
           onSubmit={(e) => {
             e.preventDefault()
-
+            if (handleFirstName(firstName) !== "Ok") return
+            if (handleLastName(lastName) !== "Ok") return
+            if (handleEmailErrors(emailInput) !== "Ok") return
+            if (handlePhoneNumber(phone) !== "Ok") return
             if (handlePassword(password) === "error") return
             if (handlePasswordConfirmation(confirmPassword) === "error") return
 
@@ -94,6 +100,8 @@ export default function SignUp() {
             saveEmail(emailInput)
             savePassword(password)
             savePhone(phone)
+
+            navigate("/tasks")
           }}
         >
           <div className="name-container">
@@ -138,12 +146,13 @@ export default function SignUp() {
               className="email-input"
               type="email"
               placeholder="Email"
+              value={emailInput}
               required
               onChange={(e) => {
                 const value = e.target.value
                 const result = handleEmailErrors(value)
                 if (result !== "error") {
-                  setEmailInput(result)
+                  setEmailInput(value)
                 }
               }}
             />
@@ -155,12 +164,13 @@ export default function SignUp() {
               className="phone-input"
               type="text"
               placeholder="Phone"
+              value={phone}
               required
               onChange={(e) => {
                 const value = e.target.value
                 const result = handlePhoneNumber(value)
                 if (result !== "error") {
-                  setPhone(result)
+                  setPhone(value)
                 }
               }}
             />
