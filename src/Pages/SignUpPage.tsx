@@ -2,6 +2,8 @@ import { useState } from "react"
 import { saveEmail, saveFirstName, saveLastName, savePassword, savePhone } from "../types/localStorage"
 import "../styles/SignUpPage.css"
 import { useNavigate } from "react-router-dom"
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { auth } from "../firebase"
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("")
@@ -10,8 +12,29 @@ export default function SignUp() {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [phone, setPhone] = useState("")
+  const [googleLoading, setGoogleLoading] = useState(false)
+  const [googleError, setGoogleError] = useState("")
 
   const navigate = useNavigate()
+
+  const handleGoogleSignup = async () => {
+    try {
+      setGoogleLoading(true)
+      setGoogleError("")
+
+      const provider = new GoogleAuthProvider()
+      provider.setCustomParameters({
+        prompt: "select-account",
+      })
+      await signInWithPopup(auth, provider)
+      navigate("/tasks")
+    } catch (error) {
+      console.log("Google authentication failed:", error)
+      setGoogleError("Google signup failed. Please try again.")
+    } finally {
+      setGoogleLoading(false)
+    }
+  }
 
   const handlePassword = (str: string) => {
     if (str.length < 8) {
@@ -211,9 +234,10 @@ export default function SignUp() {
             <span className="or">or</span>
             <span className="after"></span>
           </div>
-          <button type="button" className="google-signin-btn">
-            Sign up with Google
+          <button type="button" className="google-signin-btn" onClick={handleGoogleSignup} disabled={googleLoading}>
+            {googleLoading ? "Loading..." : "Sign up with Google"}
           </button>
+          {googleError && <p className="google-error">{googleError}</p>}
         </section>
       </section>
     </main>
