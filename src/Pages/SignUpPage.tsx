@@ -24,7 +24,7 @@ export default function SignUp() {
 
       const provider = new GoogleAuthProvider()
       provider.setCustomParameters({
-        prompt: "select-account",
+        prompt: "select_account",
       })
       await signInWithPopup(auth, provider)
       navigate("/tasks")
