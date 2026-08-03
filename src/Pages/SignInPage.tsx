@@ -1,8 +1,35 @@
 import { Link, useNavigate } from "react-router-dom"
 import "../styles/SignInPage.css"
+import { useState } from "react"
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { auth } from "../firebase"
 
 export default function SignIn() {
   const navigate = useNavigate()
+  const [googleLoading, setGoogleLoading] = useState(false)
+  const [googleError, setGoogleError] = useState("")
+
+  const handleGoogleLogin = async () => {
+    try {
+      setGoogleLoading(true)
+      setGoogleError("")
+
+      const provider = new GoogleAuthProvider()
+
+      provider.setCustomParameters({
+        prompt: "select_account",
+      })
+
+      await signInWithPopup(auth, provider)
+      navigate("/tasks")
+    } catch (error) {
+      console.log("Google authentication failed:", error)
+      setGoogleError("Google login failed. Please try again.")
+    } finally {
+      setGoogleLoading(false)
+    }
+  }
+
   return (
     <main className="sign-in-main">
       <section className="logo-container">
@@ -49,6 +76,12 @@ export default function SignIn() {
               <span className="partition">or</span>
               <span className="partition-line"></span>
             </div>
+
+            <button type="button" className="google-btn-signin-pg" onClick={handleGoogleLogin} disabled={googleLoading}>
+              {googleLoading ? "Loading..." : "Sign in with Google"}
+            </button>
+
+            {googleError && <p className="google-error-signin-pg">{googleError}</p>}
 
             <p className="question">
               Don't have an account?
