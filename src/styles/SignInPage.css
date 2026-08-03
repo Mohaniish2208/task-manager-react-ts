@@ -56,10 +56,12 @@
   border-radius: 0.5rem;
 }
 
-.submit-btn {
+.submit-btn,
+.google-btn-signin-pg {
   padding: 0.4rem 0.5rem;
   font-family: var(--head-theme-font);
   line-height: 1.5rem;
+  font-weight: 600;
   border: none;
   color: azure;
   border-radius: 0.2rem;
