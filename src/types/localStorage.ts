@@ -1,9 +1,9 @@
-export const saveFirstName = (username: string) => {
-  localStorage.setItem("id", JSON.stringify(username))
+export const saveFirstName = (firstName: string) => {
+  localStorage.setItem("firstName", JSON.stringify(firstName))
 }
 
-export const saveLastName = (username: string) => {
-  localStorage.setItem("id", JSON.stringify(username))
+export const saveLastName = (lastName: string) => {
+  localStorage.setItem("lastName", JSON.stringify(lastName))
 }
 
 export const saveEmail = (email: string) => {
@@ -14,14 +14,12 @@ export const savePhone = (phone: string) => {
   localStorage.setItem("phone", JSON.stringify(phone))
 }
 
-export const getUsername = () => {
-  try {
-    const stored = localStorage.getItem("id")
-    if (!stored) return ""
-    JSON.parse(stored)
-  } catch {
-    return ""
-  }
+export const getFirstName = (): string => {
+  return JSON.parse(localStorage.getItem("firstName") || '""')
+}
+
+export const getLastName = (): string => {
+  return JSON.parse(localStorage.getItem("lastName") || '""')
 }
 
 export const getEmail = (): string => {

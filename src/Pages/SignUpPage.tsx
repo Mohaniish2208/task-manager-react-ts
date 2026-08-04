@@ -241,9 +241,10 @@ export default function SignUp() {
             />
           </div>
 
-          <button type="submit" className="sign-up-btn">
-            Register
+          <button type="submit" className="sign-up-btn" disabled={registrationLoading}>
+            {registrationLoading ? "Loading..." : "Register"}
           </button>
+          {registrationError && <p className="registration-error">{registrationError}</p>}
         </form>
         <section>
           <div className="option">
