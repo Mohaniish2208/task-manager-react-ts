@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { saveEmail, saveFirstName, saveLastName, savePassword, savePhone } from "../types/localStorage"
+import { saveEmail, saveFirstName, saveLastName, savePhone } from "../types/localStorage"
 import "../styles/SignUpPage.css"
 import { useNavigate } from "react-router-dom"
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { auth } from "../firebase"
 
 export default function SignUp() {
@@ -14,6 +14,8 @@ export default function SignUp() {
   const [phone, setPhone] = useState("")
   const [googleLoading, setGoogleLoading] = useState(false)
   const [googleError, setGoogleError] = useState("")
+  const [registrationLoading, setRegistrationLoading] = useState(false)
+  const [registrationError, setRegistrationError] = useState("")
 
   const navigate = useNavigate()
 
@@ -33,6 +35,27 @@ export default function SignUp() {
       setGoogleError("Google signup failed. Please try again.")
     } finally {
       setGoogleLoading(false)
+    }
+  }
+
+  const handleRegistration = async () => {
+    try {
+      setRegistrationLoading(true)
+      setRegistrationError("")
+
+      await createUserWithEmailAndPassword(auth, emailInput, password)
+
+      saveFirstName(firstName)
+      saveLastName(lastName)
+      saveEmail(emailInput)
+      savePhone(phone)
+
+      navigate("/tasks")
+    } catch (error) {
+      console.log("Email registration failed:", error)
+      setRegistrationError("Registration failed. Please try again.")
+    } finally {
+      setRegistrationLoading(false)
     }
   }
 
@@ -109,7 +132,7 @@ export default function SignUp() {
       <section className="form-section">
         <form
           className="sign-up-form"
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault()
             if (handleFirstName(firstName) !== "Ok") return
             if (handleLastName(lastName) !== "Ok") return
@@ -118,13 +141,7 @@ export default function SignUp() {
             if (handlePassword(password) === "error") return
             if (handlePasswordConfirmation(confirmPassword) === "error") return
 
-            saveFirstName(firstName)
-            saveLastName(lastName)
-            saveEmail(emailInput)
-            savePassword(password)
-            savePhone(phone)
-
-            navigate("/tasks")
+            await handleRegistration()
           }}
         >
           <div className="name-container">
