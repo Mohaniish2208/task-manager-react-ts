@@ -1,13 +1,32 @@
 import { Link, useNavigate } from "react-router-dom"
 import "../styles/SignInPage.css"
 import { useState } from "react"
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import { auth } from "../firebase"
 
 export default function SignIn() {
   const navigate = useNavigate()
   const [googleLoading, setGoogleLoading] = useState(false)
   const [googleError, setGoogleError] = useState("")
+  const [emailInput, setEmailInput] = useState("")
+  const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [loadingError, setLoadingError] = useState("")
+
+  const handleRegularLogin = async () => {
+    try {
+      setLoading(true)
+      setLoadingError("")
+
+      await signInWithEmailAndPassword(auth, emailInput, password)
+      navigate("/tasks")
+    } catch (error) {
+      console.log("Email authentication failed:", error)
+      setLoadingError("email or password is incorrect")
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleGoogleLogin = async () => {
     try {
@@ -45,14 +64,36 @@ export default function SignIn() {
 
       <div className="sections-container">
         <section className="info-container">
-          <form className="form">
+          <form
+            className="form"
+            onSubmit={async (e) => {
+              e.preventDefault()
+              await handleRegularLogin()
+            }}
+          >
             <h2 className="welcome">Welcome!</h2>
             <label className="email">
-              Email: <input type="text" className="username-input" placeholder="Enter your email" />
+              Email:
+              <input
+                type="email"
+                className="username-input"
+                placeholder="Enter your email"
+                required
+                value={emailInput}
+                onChange={(e) => setEmailInput(e.target.value)}
+              />
             </label>
 
             <label className="password">
-              Password: <input type="password" className="password-input" placeholder="Enter you password" />
+              Password:
+              <input
+                type="password"
+                className="password-input"
+                placeholder="Enter you password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </label>
 
             <div className="remember">
@@ -67,9 +108,10 @@ export default function SignIn() {
               </div>
             </div>
 
-            <button className="submit-btn" type="submit" onSubmit={() => navigate("/tasks")}>
-              Sign In
+            <button className="submit-btn" type="submit" disabled={loading}>
+              {loading ? "Loading..." : "Sign In"}
             </button>
+            {loadingError && <p className="loading-error">{loadingError}</p>}
 
             <div className="divider">
               <span className="partition-line"></span>

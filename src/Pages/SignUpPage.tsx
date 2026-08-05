@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { saveEmail, saveFirstName, saveLastName, savePhone } from "../types/localStorage"
+import { saveUserProfile } from "../types/localStorage"
 import "../styles/SignUpPage.css"
 import { useNavigate } from "react-router-dom"
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
@@ -16,8 +16,43 @@ export default function SignUp() {
   const [googleError, setGoogleError] = useState("")
   const [registrationLoading, setRegistrationLoading] = useState(false)
   const [registrationError, setRegistrationError] = useState("")
+  const [firstNameError, setFirstNameError] = useState("")
+  const [lastNameError, setLastNameError] = useState("")
+  const [emailInputError, setEmailInputError] = useState("")
+  const [phoneError, setPhoneError] = useState("")
+  const [confirmationError, setConfirmationError] = useState("")
 
   const navigate = useNavigate()
+
+  const handleFirstName = (str: string) => {
+    if (str.trim() === "") {
+      setFirstNameError("")
+      return ""
+    }
+
+    if (/[!,@,#,$,%,^,&,*]/.test(str)) {
+      setFirstNameError("First name should not contain symbols.")
+      return "error"
+    }
+
+    setFirstNameError("")
+    return "Ok"
+  }
+
+  const handleLastName = (str: string) => {
+    if (str.trim() === "") {
+      setLastNameError("")
+      return ""
+    }
+
+    if (/[!,@,#,$,%,^,&,*]/.test(str)) {
+      setLastNameError("Last name should not contain symbols.")
+      return "error"
+    }
+
+    setLastNameError("")
+    return "Ok"
+  }
 
   const handleGoogleSignup = async () => {
     try {
@@ -43,12 +78,14 @@ export default function SignUp() {
       setRegistrationLoading(true)
       setRegistrationError("")
 
-      await createUserWithEmailAndPassword(auth, emailInput, password)
+      const userCredential = await createUserWithEmailAndPassword(auth, emailInput, password)
 
-      saveFirstName(firstName)
-      saveLastName(lastName)
-      saveEmail(emailInput)
-      savePhone(phone)
+      saveUserProfile(userCredential.user.uid, {
+        firstName,
+        lastName,
+        phone,
+        email: emailInput,
+      })
 
       navigate("/tasks")
     } catch (error) {
@@ -66,47 +103,37 @@ export default function SignUp() {
     return "Ok"
   }
 
-  const handleFirstName = (str: string) => {
-    if (str.trim() === "") return ""
-    if (/[!,@,#,$,%,^,&,*]/.test(str)) {
-      alert("Username should not contain any symbols.")
-      return "error"
-    }
-    return "Ok"
-  }
-
-  const handleLastName = (str: string) => {
-    if (str.trim() === "") return ""
-    if (/[!,@,#,$,%,^,&,*]/.test(str)) {
-      alert("Username should not contain any symbols.")
-      return "error"
-    }
-    return "Ok"
-  }
-
   const handlePhoneNumber = (str: string) => {
-    if (str.trim() === "") return ""
-    if (str.length < 10 || str.length > 10) {
-      alert("Phone number should be ten digits long.")
+    if (!/^\d{10}$/.test(str)) {
+      setPhoneError("Phone number should be ten digits long.")
       return "error"
     }
+
+    setPhoneError("")
     return "Ok"
   }
 
   const handleEmailErrors = (str: string) => {
-    if (str.trim() === "") return ""
+    if (str.trim() === "") {
+      setEmailInputError("")
+      return ""
+    }
     if (/[!,#,$,%,^,&,*]/.test(str)) {
-      alert("No special symbols are allowed")
+      setEmailInputError("This email contains an unsupported symbol.")
       return "error"
     }
+
+    setEmailInputError("")
     return "Ok"
   }
 
   const handlePasswordConfirmation = (str: string) => {
     if (password !== str) {
-      alert("Passwords don't match.")
+      setConfirmationError("Passwords don't match.")
       return "error"
     }
+
+    setConfirmationError("")
     return "Ok"
   }
 
@@ -152,6 +179,8 @@ export default function SignUp() {
               placeholder="First name"
               value={firstName}
               required
+              aria-invalid={Boolean(firstNameError)}
+              aria-describedby={firstNameError ? "first-name-error" : undefined}
               onChange={(e) => {
                 const value = e.target.value
                 const result = handleFirstName(value)
@@ -160,6 +189,11 @@ export default function SignUp() {
                 }
               }}
             />
+            {firstNameError && (
+              <p id="first-name-error" className="field-error" role="alert">
+                {firstNameError}
+              </p>
+            )}
           </div>
 
           <div className="name-container">
@@ -170,6 +204,8 @@ export default function SignUp() {
               placeholder="Last name"
               value={lastName}
               required
+              aria-invalid={Boolean(lastNameError)}
+              aria-describedby={lastNameError ? "last-name-error" : undefined}
               onChange={(e) => {
                 const value = e.target.value
                 const result = handleLastName(value)
@@ -178,6 +214,11 @@ export default function SignUp() {
                 }
               }}
             />
+            {lastNameError && (
+              <p id="last-name-error" className="field-error" role="alert">
+                {lastNameError}
+              </p>
+            )}
           </div>
 
           <div className="email-container">
@@ -188,6 +229,8 @@ export default function SignUp() {
               placeholder="Email"
               value={emailInput}
               required
+              aria-invalid={Boolean(emailInputError)}
+              aria-describedby={emailInputError ? "email-input-error" : undefined}
               onChange={(e) => {
                 const value = e.target.value
                 const result = handleEmailErrors(value)
@@ -196,24 +239,38 @@ export default function SignUp() {
                 }
               }}
             />
+            {emailInputError && (
+              <p id="email-input-error" className="field-error" role="alert">
+                {emailInputError}
+              </p>
+            )}
           </div>
 
           <div className="phone-container">
             <label className="phone">Phone: </label>
             <input
               className="phone-input"
-              type="text"
+              type="tel"
+              inputMode="numeric"
+              maxLength={10}
               placeholder="Phone"
               value={phone}
               required
+              aria-invalid={Boolean(phoneError)}
+              aria-describedby={phoneError ? "phone-error" : undefined}
               onChange={(e) => {
                 const value = e.target.value
-                const result = handlePhoneNumber(value)
-                if (result !== "error") {
+                if (/^\d*$/.test(value)) {
                   setPhone(value)
+                  setPhoneError("")
                 }
               }}
             />
+            {phoneError && (
+              <p id="phone-error" className="field-error" role="alert">
+                {phoneError}
+              </p>
+            )}
           </div>
 
           <div className="password-container">
@@ -236,9 +293,19 @@ export default function SignUp() {
               type="password"
               placeholder="Confirm Password"
               required
+              aria-invalid={Boolean(confirmationError)}
+              aria-describedby={confirmationError ? "confirmation-error" : undefined}
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value)
+                setConfirmationError("")
+              }}
             />
+            {confirmationError && (
+              <p id="confirmation-error" className="password-error" role="alert">
+                {confirmationError}
+              </p>
+            )}
           </div>
 
           <button type="submit" className="sign-up-btn" disabled={registrationLoading}>
