@@ -2,10 +2,12 @@ import { useEffect, useState } from "react"
 import penIcon from "./images/pen.png"
 import deleteIcon from "./images/delete.png"
 import "./styles/App.css"
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import SignIn from "./Pages/SignInPage"
 import SignUp from "./Pages/SignUpPage"
 import { auth } from "./firebase"
+import { onAuthStateChanged, signOut, type User } from "firebase/auth"
+import ForgotPassword from "./Pages/ForgotPasswordPage"
 
 type Priority = {
   label: string
@@ -23,6 +25,14 @@ type Task = {
 function TaskManagerPage() {
   const currentUserId = auth.currentUser?.uid
   const taskStorageKey = currentUserId ? `tasks-${currentUserId}` : "tasks-guest"
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth)
+    } catch (error) {
+      console.log("Logout Failed.", error)
+    }
+  }
 
   const [task, setTask] = useState("")
   const [taskArr, setTaskArr] = useState<Task[]>(() => {
@@ -107,6 +117,9 @@ function TaskManagerPage() {
         </div>
 
         <div className="counts-and-clear">
+          <button type="button" className="logout-button" onClick={handleLogout}>
+            Logout
+          </button>
           <p className="total-counts">
             {completedTasks} of {totalCount} tasks completed
           </p>
@@ -229,11 +242,28 @@ function TaskManagerPage() {
 }
 
 function App() {
+  const [currentUser, setCurrentUser] = useState<User | null>(null)
+  const [authLoading, setAuthLoading] = useState(true)
+
+  useEffect(() => {
+    const unsubscribed = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user)
+      setAuthLoading(false)
+    })
+
+    return unsubscribed
+  }, [])
+
+  if (authLoading) {
+    return <p>Loading...</p>
+  }
+
   return (
     <Routes>
       <Route path="/" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/tasks" element={<TaskManagerPage />} />
+      <Route path="/forgotpassword" element={<ForgotPassword />} />
+      <Route path="/tasks" element={currentUser ? <TaskManagerPage /> : <Navigate to={"/"} replace />} />
     </Routes>
   )
 }
