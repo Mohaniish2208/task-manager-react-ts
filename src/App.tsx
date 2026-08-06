@@ -5,6 +5,7 @@ import "./styles/App.css"
 import { Route, Routes } from "react-router-dom"
 import SignIn from "./Pages/SignInPage"
 import SignUp from "./Pages/SignUpPage"
+import { auth } from "./firebase"
 
 type Priority = {
   label: string
@@ -20,9 +21,12 @@ type Task = {
 }
 
 function TaskManagerPage() {
+  const currentUserId = auth.currentUser?.uid
+  const taskStorageKey = currentUserId ? `tasks-${currentUserId}` : "tasks-guest"
+
   const [task, setTask] = useState("")
   const [taskArr, setTaskArr] = useState<Task[]>(() => {
-    const saved = localStorage.getItem("tasks")
+    const saved = localStorage.getItem(taskStorageKey)
     return saved ? JSON.parse(saved) : []
   })
 
@@ -53,8 +57,8 @@ function TaskManagerPage() {
   }
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(taskArr))
-  }, [taskArr])
+    localStorage.setItem(taskStorageKey, JSON.stringify(taskArr))
+  }, [taskArr, taskStorageKey])
 
   const completedTasks = taskArr.filter((task) => task.completed).length
   const totalCount = taskArr.length
