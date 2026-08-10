@@ -295,4 +295,4 @@ Tests       3 passed
 
 - [GitHub Repository](https://github.com/Mohaniish2208/task-manager-react-ts)
 - [StackBlitz](https://stackblitz.com/~/github.com/Mohaniish2208/task-manager-react-ts)
-- [CodeSandbox](https://codesandbox.io/p/github/Mohaniish2208/task-manager-react-ts/main)
+- [Vercel](https://vercel.com/mohaniish-projects/task-manager-react-ts)
