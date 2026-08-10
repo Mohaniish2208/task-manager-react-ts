@@ -14,7 +14,7 @@ Users can register, sign in securely, manage a private task list, reset their pa
 
 Email/password and Google authentication options.
 
-![Sign In Page](src/Screenshots/SignIn-Page.png)
+![Sign In Page](src/Screenshots/SignIn-page.png)
 
 ### Sign Up Page
 
@@ -32,15 +32,7 @@ Firebase Google authentication allows users to select an account.
 
 Each authenticated user receives a UID-specific task list.
 
-![Tasks After Sign In](src/Screenshots/Tasks-After-SignIn.png)
-
-### Task Manager Main Page
-
-![Task Manager Main Page](src/Screenshots/Task-Manager-Main.png)
-
-### Completed Task
-
-![Completed Task](src/Screenshots/Checkbox-clicked.png)
+![Tasks After Sign In](src/Screenshots/Tasks-after-SignIn.png)
 
 ## Features
 
