@@ -1,102 +1,298 @@
 # Task Manager
 
-A simple task management app built with React, TypeScript, and Vite.
+A responsive task-management application built with React, TypeScript, Firebase Authentication, and Vite.
+
+Users can create an account, sign in securely, manage a private task list, reset their password, and keep their tasks available after refreshing the browser.
 
 ## Screenshots
 
-#### Task Manager Main Page.
+### Task Manager Main Page
 
 ![Task Manager Main Page](src/Screenshots/Task-Manager-Main.png)
 
-#### Checkbox Clicked.
+### Completed Task
 
-![Checkbox Clicked](src/Screenshots/Checkbox-clicked.png)
-
-## Overview
-
-This project lets you create, manage, and track daily tasks in a clean card-based UI. Tasks are saved in browser `localStorage`, so your list stays available after refresh.
+![Completed Task](src/Screenshots/Checkbox-clicked.png)
 
 ## Features
 
-- Add a new task from the input field
-- Press `Enter` to add a task
-- Mark tasks complete with a checkbox
-- Edit a task inline and press `Enter` or `Save` to update it
+### Authentication
+
+- Register with an email and password
+- Sign in with an email and password
+- Sign up or sign in with Google
+- Select a Google account during authentication
+- Restore Firebase authentication sessions after refreshing
+- Display a loading state while Firebase restores the session
+- Protect the Tasks page from unauthenticated access
+- Log out securely with Firebase
+- Request password-reset emails
+- Display authentication loading, success, and error feedback
+- Store passwords securely through Firebase instead of `localStorage`
+
+### Task Management
+
+- Add tasks with the **Add** button
+- Add tasks by pressing `Enter`
+- Edit task text
+- Save edits by pressing `Enter` or clicking **Save**
 - Delete individual tasks
-- Show progress with `completed / total` task count
+- Mark tasks as complete
 - Clear all completed tasks
-- Glow effect on the `Clear Completed` button when there is at least one completed task
-- Persistent storage using `localStorage`
+- Assign High, Medium, or Low priority
+- Assign Personal, Work, or School categories
+- Display completed and total task counts
+- Preserve tasks after refreshing
+- Separate each user’s tasks using their Firebase UID
+
+### Validation and Accessibility
+
+- Controlled registration and sign-in inputs
+- Numeric phone-number input with ten-digit validation
+- Password confirmation validation
+- Accessible inline validation messages
+- `aria-invalid` and `aria-describedby` relationships
+- Accessible status and error feedback on the password-reset page
+- Loading states that disable buttons during Firebase requests
 
 ## Tech Stack
 
 - React 19
 - TypeScript
-- Vite
+- Vite 8
+- React Router
+- Firebase Authentication
+- Vitest
+- React Testing Library
+- `jest-dom`
+- `user-event`
+- `jsdom`
 - Plain CSS
 - ESLint
+- Capacitor for Android support
+
+## Application Routes
+
+| Route | Purpose |
+| --- | --- |
+| `#/` | Sign-in page |
+| `#/signup` | Registration page |
+| `#/forgotpassword` | Password-reset page |
+| `#/tasks` | Protected task-management page |
+
+The project uses `HashRouter`, so routes appear after the `#` in the browser URL.
 
 ## Project Structure
 
 ```text
-task-manager/
-  src/
-    App.tsx                 # Main app logic and UI
-    main.tsx                # React app entry point
-    styles/App.css          # App styling
-    images/                 # Background and button icons
-  public/
-  index.html
-  package.json
-  vite.config.ts
+task-manager-react-ts/
+├── public/
+│   ├── background.svg
+│   ├── lexora-browser-icon.svg
+│   ├── lexora-logo.svg
+│   ├── Mindfulness Flower.svg
+│   └── notepad.svg
+├── src/
+│   ├── Pages/
+│   │   ├── ForgotPasswordPage.test.tsx
+│   │   ├── ForgotPasswordPage.tsx
+│   │   ├── SignInPage.tsx
+│   │   └── SignUpPage.tsx
+│   ├── Screenshots/
+│   │   ├── Checkbox-clicked.png
+│   │   └── Task-Manager-Main.png
+│   ├── images/
+│   ├── styles/
+│   │   ├── App.css
+│   │   ├── SignInPage.css
+│   │   ├── SignUpPage.css
+│   │   └── variables.css
+│   ├── test/
+│   │   └── setup.ts
+│   ├── types/
+│   │   ├── localStorage.ts
+│   │   └── task.ts
+│   ├── App.tsx
+│   ├── firebase.ts
+│   └── main.tsx
+├── package.json
+├── tsconfig.app.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```
 
 ## Getting Started
 
-### 1. Install dependencies
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Mohaniish2208/task-manager-react-ts.git
+cd task-manager-react-ts
+```
+
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 2. Start development server
+### 3. Create a Firebase project
+
+1. Open the Firebase Console.
+2. Create or select a Firebase project.
+3. Add a Web application to the project.
+4. Open **Authentication**.
+5. Enable the **Email/Password** provider.
+6. Enable the **Google** provider.
+
+### 4. Configure environment variables
+
+Create a `.env` file in the project root:
+
+```env
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+```
+
+Copy the corresponding values from your Firebase Web application configuration.
+
+Do not commit real environment values to a public repository.
+
+### 5. Start the development server
 
 ```bash
 npm run dev
 ```
 
-### 3. Build for production
+Open the local address shown in the terminal.
+
+## Available Scripts
+
+### Start the development server
+
+```bash
+npm run dev
+```
+
+### Build the production application
 
 ```bash
 npm run build
 ```
 
-### 4. Preview production build
+### Preview the production build
 
 ```bash
 npm run preview
 ```
 
-### 5. Lint the project
+### Run ESLint
 
 ```bash
 npm run lint
 ```
 
+### Run tests once
+
+```bash
+npm test
+```
+
+### Run tests in watch mode
+
+```bash
+npm run test:watch
+```
+
+### Synchronize the web build with Android
+
+```bash
+npm run android:sync
+```
+
+### Open the Android project
+
+```bash
+npm run android:open
+```
+
+### Build the Android release bundle
+
+```bash
+npm run android:bundle
+```
+
+## Authentication Flow
+
+1. Firebase restores the existing session through `onAuthStateChanged`.
+2. The application displays a loading state while Firebase checks the session.
+3. Authenticated users can access `#/tasks`.
+4. Unauthenticated users who open `#/tasks` are redirected to sign in.
+5. Logging out updates the Firebase authentication state and returns the user to the sign-in page.
+6. Email/password users can request a reset link from `#/forgotpassword`.
+
 ## Data Persistence
 
-- Tasks are read from `localStorage` on initial load using the key `tasks`
-- Any change to the task array is automatically written back to `localStorage`
+Task and profile information is stored in browser `localStorage`.
 
-## Notes
+### Task storage
 
-- The current task state in `App.tsx` uses `{ id: number; text: string; completed: boolean }`
-- `src/types/task.ts` defines a different shape (`id: string`, `title: string`) and is not yet wired into `App.tsx`
+Tasks are stored with a Firebase UID-specific key:
+
+```text
+tasks-${user.uid}
+```
+
+This prevents one signed-in account from seeing another account’s task list through the application.
+
+### Profile storage
+
+Profile information collected during email/password registration is stored with:
+
+```text
+profile-${user.uid}
+```
+
+Passwords are not stored in `localStorage`. Firebase Authentication handles password storage and verification.
+
+## Testing
+
+The project uses Vitest and React Testing Library with a `jsdom` environment.
+
+The current tests verify that the password-reset page:
+
+1. Renders its heading, email input, submit button, and navigation link.
+2. Allows the user to enter an email address.
+3. Calls the mocked Firebase password-reset function and displays success feedback.
+
+Run the tests with:
+
+```bash
+npm test
+```
+
+Current result:
+
+```text
+Test Files  1 passed
+Tests       3 passed
+```
+
+## Current Limitations
+
+- Tasks and profiles are stored only in the current browser.
+- Data does not synchronize between devices.
+- `localStorage` can be inspected through browser developer tools.
+- UID-based keys separate accounts in the interface but do not provide encrypted cloud storage.
+- Firestore has not been connected.
+- Automated tests currently cover the password-reset page only.
 
 ## Links
 
-- [StackBlitz](https://stackblitz.com/~/github.com/Mohaniish2208/task-manager)
-
-- [CodeSandBox](https://codesandbox.io/p/github/Mohaniish2208/task-manager/main?workspaceId=ws_QuyUBcubhh91f2xBfZ1hab)
-
-- [Vercel](https://vercel.com/mohaniish-projects/task-manager-react-ts)
+- [GitHub Repository](https://github.com/Mohaniish2208/task-manager-react-ts)
+- [StackBlitz](https://stackblitz.com/~/github.com/Mohaniish2208/task-manager-react-ts)
+- [CodeSandbox](https://codesandbox.io/p/github/Mohaniish2208/task-manager-react-ts/main)
