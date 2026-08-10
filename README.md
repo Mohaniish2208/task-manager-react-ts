@@ -1,10 +1,38 @@
-# Task Manager
+# Lexora Task Manager
 
 A responsive task-management application built with React, TypeScript, Firebase Authentication, and Vite.
 
-Users can create an account, sign in securely, manage a private task list, reset their password, and keep their tasks available after refreshing the browser.
+Users can register, sign in securely, manage a private task list, reset their password, and preserve their tasks after refreshing the browser.
+
+## Live Demo
+
+[View the Task Manager on Vercel](https://task-manager-react-ts.vercel.app/)
 
 ## Screenshots
+
+### Sign In Page
+
+Email/password and Google authentication options.
+
+![Sign In Page](src/Screenshots/Sign-In-Page.png)
+
+### Sign Up Page
+
+Registration form with profile information, validation, and Google signup.
+
+![Sign Up Page](src/Screenshots/Sign-Up-Page.png)
+
+### Google Account Selection
+
+Firebase Google authentication allows users to select an account.
+
+![Google Account Selection](src/Screenshots/Google-Account-Selection.png)
+
+### Tasks After Sign In
+
+Each authenticated user receives a UID-specific task list.
+
+![Tasks After Sign In](src/Screenshots/Tasks-After-Sign-In.png)
 
 ### Task Manager Main Page
 
@@ -43,7 +71,7 @@ Users can create an account, sign in securely, manage a private task list, reset
 - Assign Personal, Work, or School categories
 - Display completed and total task counts
 - Preserve tasks after refreshing
-- Separate each user’s tasks using their Firebase UID
+- Separate each user's tasks using their Firebase UID
 
 ### Validation and Accessibility
 
@@ -52,7 +80,7 @@ Users can create an account, sign in securely, manage a private task list, reset
 - Password confirmation validation
 - Accessible inline validation messages
 - `aria-invalid` and `aria-describedby` relationships
-- Accessible status and error feedback on the password-reset page
+- Accessible status and error feedback
 - Loading states that disable buttons during Firebase requests
 
 ## Tech Stack
@@ -70,6 +98,7 @@ Users can create an account, sign in securely, manage a private task list, reset
 - Plain CSS
 - ESLint
 - Capacitor for Android support
+- Vercel for deployment
 
 ## Application Routes
 
@@ -80,45 +109,59 @@ Users can create an account, sign in securely, manage a private task list, reset
 | `#/forgotpassword` | Password-reset page |
 | `#/tasks` | Protected task-management page |
 
-The project uses `HashRouter`, so routes appear after the `#` in the browser URL.
+The application uses `HashRouter`, so each route appears after the `#` in the browser URL.
 
 ## Project Structure
 
 ```text
 task-manager-react-ts/
-├── public/
-│   ├── background.svg
-│   ├── lexora-browser-icon.svg
-│   ├── lexora-logo.svg
-│   ├── Mindfulness Flower.svg
-│   └── notepad.svg
-├── src/
-│   ├── Pages/
-│   │   ├── ForgotPasswordPage.test.tsx
-│   │   ├── ForgotPasswordPage.tsx
-│   │   ├── SignInPage.tsx
-│   │   └── SignUpPage.tsx
-│   ├── Screenshots/
-│   │   ├── Checkbox-clicked.png
-│   │   └── Task-Manager-Main.png
-│   ├── images/
-│   ├── styles/
-│   │   ├── App.css
-│   │   ├── SignInPage.css
-│   │   ├── SignUpPage.css
-│   │   └── variables.css
-│   ├── test/
-│   │   └── setup.ts
-│   ├── types/
-│   │   ├── localStorage.ts
-│   │   └── task.ts
-│   ├── App.tsx
-│   ├── firebase.ts
-│   └── main.tsx
-├── package.json
-├── tsconfig.app.json
-├── tsconfig.node.json
-└── vite.config.ts
+  public/
+    background.svg
+    lexora-browser-icon.svg
+    lexora-logo.svg
+    Mindfulness Flower.svg
+    notepad.svg
+
+  src/
+    Pages/
+      ForgotPasswordPage.test.tsx
+      ForgotPasswordPage.tsx
+      SignInPage.tsx
+      SignUpPage.tsx
+
+    Screenshots/
+      Checkbox-clicked.png
+      Google-Account-Selection.png
+      Sign-In-Page.png
+      Sign-Up-Page.png
+      Task-Manager-Main.png
+      Tasks-After-Sign-In.png
+
+    images/
+      delete.png
+      pen.png
+
+    styles/
+      App.css
+      SignInPage.css
+      SignUpPage.css
+      variables.css
+
+    test/
+      setup.ts
+
+    types/
+      localStorage.ts
+      task.ts
+
+    App.tsx
+    firebase.ts
+    main.tsx
+
+  package.json
+  tsconfig.app.json
+  tsconfig.node.json
+  vite.config.ts
 ```
 
 ## Getting Started
@@ -140,14 +183,14 @@ npm install
 
 1. Open the Firebase Console.
 2. Create or select a Firebase project.
-3. Add a Web application to the project.
+3. Add a Web application.
 4. Open **Authentication**.
 5. Enable the **Email/Password** provider.
 6. Enable the **Google** provider.
 
 ### 4. Configure environment variables
 
-Create a `.env` file in the project root:
+Create a `.env.local` file in the project root:
 
 ```env
 VITE_FIREBASE_API_KEY=your_api_key
@@ -158,7 +201,7 @@ VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
 VITE_FIREBASE_APP_ID=your_app_id
 ```
 
-Copy the corresponding values from your Firebase Web application configuration.
+Copy the corresponding values from the Firebase Web application configuration.
 
 Do not commit real environment values to a public repository.
 
@@ -239,7 +282,7 @@ npm run android:bundle
 
 Task and profile information is stored in browser `localStorage`.
 
-### Task storage
+### Task Storage
 
 Tasks are stored with a Firebase UID-specific key:
 
@@ -247,9 +290,9 @@ Tasks are stored with a Firebase UID-specific key:
 tasks-${user.uid}
 ```
 
-This prevents one signed-in account from seeing another account’s task list through the application.
+This prevents one signed-in account from seeing another account's task list through the application.
 
-### Profile storage
+### Profile Storage
 
 Profile information collected during email/password registration is stored with:
 
@@ -282,6 +325,23 @@ Test Files  1 passed
 Tests       3 passed
 ```
 
+## Deployment
+
+The application is deployed through Vercel.
+
+The following environment variables must also be added under the Vercel project's **Settings > Environment Variables**:
+
+```text
+VITE_FIREBASE_API_KEY
+VITE_FIREBASE_AUTH_DOMAIN
+VITE_FIREBASE_PROJECT_ID
+VITE_FIREBASE_STORAGE_BUCKET
+VITE_FIREBASE_MESSAGING_SENDER_ID
+VITE_FIREBASE_APP_ID
+```
+
+After adding or changing an environment variable, redeploy the project.
+
 ## Current Limitations
 
 - Tasks and profiles are stored only in the current browser.
@@ -293,6 +353,6 @@ Tests       3 passed
 
 ## Links
 
+- [Live Vercel Deployment](https://task-manager-react-ts.vercel.app/)
 - [GitHub Repository](https://github.com/Mohaniish2208/task-manager-react-ts)
 - [StackBlitz](https://stackblitz.com/~/github.com/Mohaniish2208/task-manager-react-ts)
-- [Vercel](https://vercel.com/mohaniish-projects/task-manager-react-ts)
