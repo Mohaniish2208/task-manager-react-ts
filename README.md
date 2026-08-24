@@ -1,8 +1,20 @@
 # Lexora Task Manager
 
-A responsive task-management application built with React, TypeScript, Firebase Authentication, and Vite.
+A responsive task-management application built with **React 19, TypeScript, Firebase Authentication, and Vite**.
 
-Users can register, sign in securely, manage a private task list, reset their password, and preserve their tasks after refreshing the browser.
+Lexora lets authenticated users create and manage private task lists, organize tasks by priority and category, recover forgotten passwords, and keep their session active across page refreshes.
+
+## Highlights
+
+- Secure email/password and Google authentication with Firebase
+- Protected task-management routes
+- Session restoration with `onAuthStateChanged`
+- UID-scoped task and profile storage
+- Task creation, editing, deletion, completion, priority, and categories
+- Accessible form validation and authentication feedback
+- Automated testing with Vitest and React Testing Library
+- Production deployment with Vercel
+- Android support through Capacitor
 
 ## Live Demo
 
